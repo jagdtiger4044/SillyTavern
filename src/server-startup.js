@@ -236,6 +236,8 @@ export class ServerStartup {
                 key: fs.readFileSync(this.cliArgs.keyPath),
             };
             const server = https.createServer(sslOptions, this.app);
+            server.headersTimeout = 600000; // 10 分钟
+            server.timeout = 600000; // 10 分钟
             server.on('error', reject);
             server.on('listening', resolve);
 
@@ -259,6 +261,8 @@ export class ServerStartup {
     #createHttpServer(url, ipVersion) {
         return new Promise((resolve, reject) => {
             const server = http.createServer(this.app);
+            server.headersTimeout = 600000; // 10 分钟
+            server.timeout = 600000; // 10 分钟
             server.on('error', reject);
             server.on('listening', resolve);
 
